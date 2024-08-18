@@ -1,28 +1,19 @@
 
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Login from './Login';
+import Home from './Home';
 
-import { Authenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-import awsConfig from "./aws-exports"
-import { Amplify } from 'aws-amplify';
-
-
-Amplify.configure(awsConfig);
-
-function App() {
+const App = () => {
   return (
-    <Authenticator>
-      {({ signOut, user }) => (
-        <div className="App">
-          <p>
-            Hey {user.username}, welcome to my channel, with auth!
-          </p>
-          <button onClick={signOut}>Sign out</button>
-        </div>
-      )}
-    </Authenticator>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Navigate to="/login" />} />
+      </Routes>
+    </Router>
   );
-}
-
+};
 
 export default App;
